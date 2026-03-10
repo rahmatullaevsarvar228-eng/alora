@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alora -  O'zbek Tili Olami</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Tenor+Sans&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0b0905;
+  --bg2:#110d08;
+  --surface:#1a1410;
+  --surface2:#221c14;
+  --border:rgba(212,175,95,0.18);
+  --border2:rgba(212,175,95,0.35);
+  --gold:#d4af5f;
+  --gold2:#f0d080;
+  --gold3:#a07830;
+  --cream:#f5ede0;
+  --cream2:#e8d8c0;
+  --muted:rgba(245,237,224,0.45);
+  --muted2:rgba(245,237,224,0.25);
+  --rose:#c0705a;
+  --rose2:#e8957a;
+  --teal:#4a8c8c;
+  --teal2:#7ababa;
+  --font-display:'Cormorant Garamond',Georgia,serif;
+  --font-body:'Tenor Sans','Palatino Linotype',serif;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--cream);
+  font-family:var(--font-body);
+  font-size:16px;
+  line-height:1.7;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* CUSTOM CURSOR */
+.cursor{
+  position:fixed;width:10px;height:10px;background:var(--gold);
+  border-radius:50%;pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:transform 0.1s,width 0.3s,height 0.3s,opacity 0.3s;
+}
+.cursor-ring{
+  position:fixed;width:36px;height:36px;
+  border:1px solid rgba(212,175,95,0.5);
+  border-radius:50%;pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);
+  transition:transform 0.15s ease,width 0.3s,height 0.3s;
+}
+body:hover .cursor{opacity:1}
+
+/* NOISE OVERLAY */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity:0.35;pointer-events:none;z-index:1;
+}
+
+/* ====== HERO ====== */
+.hero{
+  position:relative;min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  overflow:hidden;text-align:center;
+  padding:60px 24px 80px;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 20%,rgba(212,175,95,0.08) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 80% at 20% 80%,rgba(74,140,140,0.06) 0%,transparent 50%),
+    radial-gradient(ellipse 50% 50% at 80% 60%,rgba(192,112,90,0.05) 0%,transparent 50%);
+}
+.hero-lines{
+  position:absolute;inset:0;overflow:hidden;
+}
+.hero-lines::before,.hero-lines::after{
+  content:'';position:absolute;
+  border:1px solid rgba(212,175,95,0.04);
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  left:50%;top:40%;
+}
+.hero-lines::before{width:600px;height:600px}
+.hero-lines::after{width:900px;height:900px}
+
+.photo-frame{
+  position:relative;
+  width:180px;height:180px;
+  margin:0 auto 48px;
+  animation:floatIn 1.2s cubic-bezier(.22,1,.36,1) both;
+}
+.photo-frame::before{
+  content:'';position:absolute;
+  inset:-3px;border-radius:50%;
+  background:conic-gradient(var(--gold),var(--rose),var(--teal),var(--gold));
+  animation:spin 8s linear infinite;
+}
+.photo-frame::after{
+  content:'';position:absolute;
+  inset:3px;border-radius:50%;
+  background:var(--bg);
+}
+.photo-inner{
+  position:absolute;inset:6px;border-radius:50%;
+  overflow:hidden;z-index:2;
+  background:linear-gradient(135deg,var(--surface),var(--surface2));
+  display:flex;align-items:center;justify-content:center;
+}
+.photo-inner img{
+  width:100%;height:100%;object-fit:cover;
+}
+.photo-fallback{
+  font-size:72px;line-height:1;
+  animation:pulse 3s ease-in-out infinite;
+}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:0.7}50%{opacity:1}}
+
+.hero-eyebrow{
+  font-family:var(--font-display);
+  font-style:italic;font-size:1rem;
+  letter-spacing:5px;text-transform:uppercase;
+  color:var(--gold3);
+  animation:fadeUp 1s ease 0.4s both;
+}
+.hero-name{
+  font-family:var(--font-display);
+  font-size:clamp(4rem,12vw,8rem);
+  font-weight:300;
+  line-height:0.9;
+  letter-spacing:-2px;
+  color:var(--cream);
+  animation:fadeUp 1s ease 0.6s both;
+}
+.hero-name em{
+  display:block;
+  font-style:italic;
+  color:var(--gold);
+  font-weight:700;
+}
+.hero-tagline{
+  font-family:var(--font-display);
+  font-style:italic;
+  font-size:clamp(1.1rem,3vw,1.5rem);
+  color:var(--muted);
+  margin:24px auto 0;
+  max-width:500px;
+  animation:fadeUp 1s ease 0.8s both;
+}
+.hero-divider{
+  width:120px;height:1px;
+  background:linear-gradient(to right,transparent,var(--gold),transparent);
+  margin:32px auto 0;
+  animation:fadeUp 1s ease 1s both;
+}
+.hero-stats{
+  display:flex;gap:48px;justify-content:center;
+  margin-top:48px;
+  animation:fadeUp 1s ease 1.1s both;
+}
+.hero-stat-num{
+  font-family:var(--font-display);
+  font-size:2.5rem;font-weight:700;
+  color:var(--gold);line-height:1;
+}
+.hero-stat-label{
+  font-size:0.7rem;letter-spacing:3px;
+  text-transform:uppercase;color:var(--muted);
+  margin-top:4px;
+}
+.scroll-cue{
+  position:absolute;bottom:32px;left:50%;
+  transform:translateX(-50%);
+  display:flex;flex-direction:column;
+  align-items:center;gap:8px;
+  animation:fadeUp 1s ease 1.3s both;
+}
+.scroll-cue span{
+  font-size:10px;letter-spacing:4px;
+  text-transform:uppercase;color:var(--muted2);
+}
+.scroll-line{
+  width:1px;height:40px;
+  background:linear-gradient(to bottom,var(--gold),transparent);
+  animation:scrollLine 2s ease infinite;
+}
+@keyframes scrollLine{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ====== APP NAV ====== */
+.app-nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(11,9,5,0.92);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.app-nav-inner{
+  max-width:1200px;margin:0 auto;
+  display:flex;align-items:center;
+  padding:0 24px;
+  overflow-x:auto;gap:0;
+  scrollbar-width:none;
+}
+.app-nav-inner::-webkit-scrollbar{display:none}
+.nav-logo{
+  font-family:var(--font-display);
+  font-style:italic;font-size:1.3rem;
+  color:var(--gold);white-space:nowrap;
+  padding:16px 24px 16px 0;
+  border-right:1px solid var(--border);
+  margin-right:8px;flex-shrink:0;
+}
+.nav-tab{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:18px 20px;
+  color:var(--muted);font-size:0.78rem;
+  letter-spacing:2px;text-transform:uppercase;
+  white-space:nowrap;cursor:pointer;
+  border-bottom:2px solid transparent;
+  transition:all 0.3s;border:none;background:none;
+  font-family:var(--font-body);
+}
+.nav-tab:hover{color:var(--cream)}
+.nav-tab.active{color:var(--gold);border-bottom:2px solid var(--gold)}
+.nav-tab-icon{font-size:1rem}
+
+/* ====== SECTIONS ====== */
+.page{display:none}
+.page.active{display:block}
+
+/* ====== STORY PAGE ====== */
+.story-hero{
+  background:linear-gradient(180deg,var(--bg) 0%,var(--surface) 100%);
+  padding:80px 24px;text-align:center;
+  border-bottom:1px solid var(--border);
+}
+.story-title{
+  font-family:var(--font-display);
+  font-size:clamp(2.5rem,6vw,4.5rem);
+  font-weight:300;color:var(--cream);
+  line-height:1.05;
+}
+.story-title strong{color:var(--gold);font-weight:700}
+
+.stories-container{
+  max-width:860px;margin:0 auto;padding:60px 24px;
+}
+.story-card{
+  margin-bottom:60px;
+  border:1px solid var(--border);
+  border-radius:4px;
+  overflow:hidden;
+  background:var(--surface);
+  transition:border-color 0.3s;
+}
+.story-card:hover{border-color:var(--border2)}
+.story-card-header{
+  padding:36px 40px 24px;
+  border-bottom:1px solid var(--border);
+  background:var(--surface2);
+  display:flex;align-items:flex-start;gap:20px;
+}
+.story-num{
+  font-family:var(--font-display);
+  font-size:3.5rem;font-weight:700;
+  color:rgba(212,175,95,0.15);
+  line-height:1;flex-shrink:0;
+  min-width:60px;
+}
+.story-meta{}
+.story-card-title{
+  font-family:var(--font-display);
+  font-size:1.8rem;font-weight:600;
+  color:var(--gold2);
+  line-height:1.2;margin-bottom:6px;
+}
+.story-card-sub{
+  font-size:0.8rem;letter-spacing:3px;
+  text-transform:uppercase;color:var(--rose2);
+}
+.story-body{padding:36px 40px}
+.story-lang-toggle{
+  display:flex;gap:0;margin-bottom:28px;
+  border:1px solid var(--border);
+  border-radius:2px;overflow:hidden;
+  width:fit-content;
+}
+.story-lang-btn{
+  padding:8px 20px;font-size:0.75rem;
+  letter-spacing:2px;text-transform:uppercase;
+  cursor:pointer;border:none;
+  font-family:var(--font-body);
+  transition:all 0.2s;
+}
+.story-lang-btn.uz{background:var(--gold);color:var(--bg)}
+.story-lang-btn.tr{background:transparent;color:var(--muted)}
+.story-lang-btn.tr:hover{color:var(--cream)}
+.story-text{
+  font-family:var(--font-display);
+  font-size:1.2rem;line-height:2;
+  color:var(--cream2);
+}
+.story-text-tr{
+  display:none;
+  font-family:var(--font-display);
+  font-size:1.1rem;line-height:2;
+  color:rgba(245,237,224,0.65);
+  font-style:italic;
+  border-top:1px solid var(--border);
+  padding-top:24px;margin-top:24px;
+}
+.story-vocab{
+  margin-top:28px;padding-top:24px;
+  border-top:1px solid var(--border);
+}
+.story-vocab-title{
+  font-size:0.7rem;letter-spacing:3px;
+  text-transform:uppercase;color:var(--gold3);
+  margin-bottom:12px;
+}
+.story-words{
+  display:flex;flex-wrap:wrap;gap:8px;
+}
+.story-word{
+  background:rgba(212,175,95,0.08);
+  border:1px solid var(--border);
+  padding:6px 14px;border-radius:2px;
+  font-size:0.88rem;color:var(--cream);
+  cursor:pointer;transition:all 0.2s;
+}
+.story-word:hover{background:rgba(212,175,95,0.18);border-color:var(--gold)}
+.story-word em{color:var(--muted);font-style:italic;font-size:0.8rem}
+
+/* ====== VOCAB PAGE ====== */
+.vocab-controls{
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  padding:24px;
+  position:sticky;top:57px;z-index:50;
+  backdrop-filter:blur(10px);
+}
+.vocab-controls-inner{
+  max-width:1200px;margin:0 auto;
+  display:flex;gap:16px;flex-wrap:wrap;align-items:center;
+}
+.search-box{
+  flex:1;min-width:200px;
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:2px;
+  padding:12px 20px;
+  color:var(--cream);font-size:0.95rem;
+  font-family:var(--font-body);
+  outline:none;transition:border-color 0.3s;
+}
+.search-box::placeholder{color:var(--muted2)}
+.search-box:focus{border-color:var(--gold)}
+.filter-chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{
+  padding:8px 16px;border-radius:20px;
+  font-size:0.72rem;letter-spacing:2px;
+  text-transform:uppercase;cursor:pointer;
+  border:1px solid var(--border);
+  background:transparent;color:var(--muted);
+  font-family:var(--font-body);transition:all 0.2s;
+}
+.chip:hover{color:var(--cream);border-color:var(--muted)}
+.chip.active{background:var(--gold);border-color:var(--gold);color:var(--bg)}
+
+.vocab-grid-container{
+  max-width:1200px;margin:0 auto;padding:40px 24px;
+}
+.vocab-count{
+  font-size:0.75rem;letter-spacing:3px;
+  text-transform:uppercase;color:var(--muted2);
+  margin-bottom:24px;
+}
+.vocab-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:16px;
+}
+.vcard{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:3px;padding:24px;
+  cursor:pointer;transition:all 0.3s;
+  position:relative;overflow:hidden;
+}
+.vcard::after{
+  content:'';position:absolute;
+  bottom:0;left:0;height:2px;width:0;
+  background:var(--gold);transition:width 0.4s;
+}
+.vcard:hover{border-color:var(--border2);transform:translateY(-2px)}
+.vcard:hover::after{width:100%}
+.vcard.flipped .vcard-front{display:none}
+.vcard.flipped .vcard-back{display:block}
+.vcard-front{}
+.vcard-back{display:none}
+.vcard-cat{
+  font-size:0.65rem;letter-spacing:3px;
+  text-transform:uppercase;color:var(--gold3);
+  margin-bottom:10px;
+}
+.vcard-uz{
+  font-family:var(--font-display);
+  font-size:1.5rem;font-weight:600;
+  color:var(--cream);line-height:1.2;
+  margin-bottom:4px;
+}
+.vcard-tr{
+  font-size:0.95rem;color:var(--rose2);
+  font-style:italic;margin-bottom:10px;
+}
+.vcard-ex{
+  font-size:0.82rem;color:var(--muted);
+  line-height:1.6;border-top:1px solid var(--border);
+  padding-top:10px;margin-top:8px;
+}
+.vcard-ex em{color:var(--teal2);font-style:normal}
+.vcard-hint{
+  position:absolute;top:12px;right:14px;
+  font-size:0.65rem;letter-spacing:1px;
+  color:var(--muted2);text-transform:uppercase;
+}
+
+/* ====== PHRASES PAGE ====== */
+.phrases-container{max-width:1000px;margin:0 auto;padding:60px 24px}
+.phrase-section{margin-bottom:60px}
+.phrase-section-title{
+  font-family:var(--font-display);
+  font-size:2.2rem;font-weight:300;
+  color:var(--gold2);
+  border-bottom:1px solid var(--border);
+  padding-bottom:16px;margin-bottom:28px;
+}
+.phrase-section-title span{font-style:italic}
+.phrase-row{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:0;border:1px solid var(--border);
+  margin-bottom:12px;border-radius:2px;
+  overflow:hidden;transition:border-color 0.3s;
+}
+.phrase-row:hover{border-color:var(--border2)}
+.phrase-uz,.phrase-tr{padding:18px 24px}
+.phrase-uz{
+  background:var(--surface);
+  font-family:var(--font-display);
+  font-size:1.1rem;color:var(--cream);
+  border-right:1px solid var(--border);
+}
+.phrase-tr{
+  background:var(--bg2);
+  font-size:0.98rem;color:var(--muted);
+  font-style:italic;
+}
+.phrase-label{
+  font-size:0.6rem;letter-spacing:3px;
+  text-transform:uppercase;margin-bottom:4px;
+  color:var(--gold3);
+}
+
+/* ====== TOPICS PAGE ====== */
+.topics-container{max-width:1100px;margin:0 auto;padding:60px 24px}
+.topic-cards-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  gap:24px;
+}
+.topic-big-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:4px;overflow:hidden;
+  transition:all 0.4s;
+}
+.topic-big-card:hover{
+  border-color:var(--border2);
+  transform:translateY(-4px);
+  box-shadow:0 24px 60px rgba(0,0,0,0.4);
+}
+.topic-card-top{
+  padding:36px 32px 28px;
+  border-bottom:1px solid var(--border);
+}
+.topic-emoji{font-size:2.8rem;display:block;margin-bottom:16px}
+.topic-card-name{
+  font-family:var(--font-display);
+  font-size:1.6rem;font-weight:600;
+  color:var(--gold2);margin-bottom:6px;
+}
+.topic-card-name-tr{
+  font-size:0.85rem;color:var(--muted);
+  font-style:italic;letter-spacing:1px;
+}
+.topic-card-body{padding:28px 32px}
+.topic-card-text{
+  font-size:1rem;line-height:1.9;
+  color:rgba(245,237,224,0.75);
+  margin-bottom:20px;
+}
+.topic-words{display:flex;flex-wrap:wrap;gap:8px}
+.tw{
+  font-size:0.82rem;
+  background:rgba(212,175,95,0.07);
+  border:1px solid var(--border);
+  padding:5px 12px;border-radius:2px;
+  color:var(--cream);
+}
+.tw strong{color:var(--gold);margin-right:4px}
+.tw small{color:var(--muted);font-style:italic}
+
+/* ====== FLASHCARD MODE ====== */
+.flashcard-container{
+  max-width:600px;margin:0 auto;
+  padding:60px 24px;text-align:center;
+}
+.fc-progress{
+  height:3px;background:var(--surface2);
+  border-radius:2px;margin-bottom:48px;overflow:hidden;
+}
+.fc-progress-bar{
+  height:100%;background:var(--gold);
+  border-radius:2px;transition:width 0.4s;
+}
+.flashcard{
+  width:100%;aspect-ratio:3/2;
+  perspective:1000px;cursor:pointer;
+  margin-bottom:32px;
+}
+.fc-inner{
+  position:relative;width:100%;height:100%;
+  transform-style:preserve-3d;
+  transition:transform 0.6s cubic-bezier(.4,0,.2,1);
+}
+.flashcard.revealed .fc-inner{transform:rotateY(180deg)}
+.fc-front,.fc-back{
+  position:absolute;inset:0;
+  backface-visibility:hidden;
+  border:1px solid var(--border);
+  border-radius:6px;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:40px;
+}
+.fc-front{background:var(--surface)}
+.fc-back{
+  background:var(--surface2);
+  transform:rotateY(180deg);
+  border-color:var(--border2);
+}
+.fc-cat{
+  font-size:0.65rem;letter-spacing:3px;
+  text-transform:uppercase;color:var(--gold3);
+  margin-bottom:20px;
+}
+.fc-word{
+  font-family:var(--font-display);
+  font-size:3rem;font-weight:600;
+  color:var(--cream);line-height:1.1;
+}
+.fc-hint{
+  margin-top:20px;font-size:0.8rem;
+  color:var(--muted2);letter-spacing:2px;
+  text-transform:uppercase;
+}
+.fc-answer{
+  font-family:var(--font-display);
+  font-size:2.2rem;font-weight:600;
+  color:var(--gold);
+}
+.fc-example{
+  margin-top:16px;font-size:0.95rem;
+  color:var(--muted);font-style:italic;
+  line-height:1.6;
+}
+.fc-controls{
+  display:flex;gap:16px;justify-content:center;
+  margin-top:32px;
+}
+.fc-btn{
+  padding:14px 32px;border-radius:2px;
+  font-size:0.75rem;letter-spacing:2px;
+  text-transform:uppercase;cursor:pointer;
+  font-family:var(--font-body);transition:all 0.3s;
+  border:none;
+}
+.fc-btn.wrong{background:rgba(192,112,90,0.2);color:var(--rose2);border:1px solid rgba(192,112,90,0.3)}
+.fc-btn.right{background:rgba(74,140,140,0.2);color:var(--teal2);border:1px solid rgba(74,140,140,0.3)}
+.fc-btn.wrong:hover{background:rgba(192,112,90,0.35)}
+.fc-btn.right:hover{background:rgba(74,140,140,0.35)}
+.fc-counter{
+  font-family:var(--font-display);
+  font-size:3.5rem;color:rgba(212,175,95,0.15);
+  font-weight:700;margin-bottom:8px;
+}
+.fc-score{
+  font-size:0.78rem;letter-spacing:3px;
+  text-transform:uppercase;color:var(--muted2);
+}
+.fc-nav-hint{
+  color:var(--muted2);font-size:0.8rem;
+  margin-top:12px;letter-spacing:1px;
+}
+
+/* GLOBAL SECTIONS */
+.section-header{
+  text-align:center;padding:70px 24px 50px;
+  border-bottom:1px solid var(--border);
+  margin-bottom:0;background:var(--bg2);
+}
+.eyebrow{
+  font-size:0.72rem;letter-spacing:5px;
+  text-transform:uppercase;color:var(--gold3);
+  margin-bottom:14px;
+}
+.big-title{
+  font-family:var(--font-display);
+  font-size:clamp(2.5rem,7vw,4.5rem);
+  font-weight:300;color:var(--cream);line-height:1;
+}
+.big-title em{font-style:italic;color:var(--gold)}
+.subtitle{
+  margin-top:16px;font-style:italic;
+  color:var(--muted);font-size:1.05rem;
+  font-family:var(--font-display);
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(28px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes floatIn{
+  from{opacity:0;transform:scale(0.8) translateY(20px)}
+  to{opacity:1;transform:scale(1) translateY(0)}
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--gold3);border-radius:2px}
+
+/* RESPONSIVE */
+@media(max-width:700px){
+  .phrase-row{grid-template-columns:1fr}
+  .phrase-uz{border-right:none;border-bottom:1px solid var(--border)}
+  .hero-stats{gap:24px}
+  .story-card-header{flex-direction:column;gap:8px}
+  .story-body{padding:24px}
+  .vcard{padding:18px}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ====== HERO ====== -->
+<section class="hero" id="heroSection">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+
+  <div class="photo-frame">
+    <div class="photo-inner">
+      <img src="2.jpg" alt="Alora" onerror="this.style.display='none';document.getElementById('photoFallback').style.display='flex'">
+      <div class="photo-fallback" id="photoFallback" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;">🌸</div>
+    </div>
+  </div>
+
+  <div class="hero-eyebrow">Siz uchun yaratilgan dunyo</div>
+  <h1 class="hero-name">
+    Alora<em>ga</em>
+  </h1>
+  <p class="hero-tagline">Türkiye'den Özbekistan'a uzanan bir dil köprüsü -  yalnızca senin için</p>
+  <div class="hero-divider"></div>
+
+  <div class="hero-stats">
+    <div>
+      <div class="hero-stat-num">500+</div>
+      <div class="hero-stat-label">So'z & ibora</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">8</div>
+      <div class="hero-stat-label">Mavzu</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">∞</div>
+      <div class="hero-stat-label">Mehr</div>
+    </div>
+  </div>
+
+  <div class="scroll-cue">
+    <span>Pastga</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ====== APP NAV ====== -->
+<nav class="app-nav" id="appNav">
+  <div class="app-nav-inner">
+    <div class="nav-logo">Alora</div>
+    <button class="nav-tab active" onclick="showPage('stories')" data-page="stories">
+      <span class="nav-tab-icon">📖</span> Hikoyalar
+    </button>
+    <button class="nav-tab" onclick="showPage('vocab')" data-page="vocab">
+      <span class="nav-tab-icon">📚</span> Lug'at
+    </button>
+    <button class="nav-tab" onclick="showPage('phrases')" data-page="phrases">
+      <span class="nav-tab-icon">💬</span> Iboralar
+    </button>
+    <button class="nav-tab" onclick="showPage('topics')" data-page="topics">
+      <span class="nav-tab-icon">🌍</span> Mavzular
+    </button>
+    <button class="nav-tab" onclick="showPage('flashcards')" data-page="flashcards">
+      <span class="nav-tab-icon">⚡</span> Kartochkalar
+    </button>
+  </div>
+</nav>
+
+<!-- ====== STORIES PAGE ====== -->
+<div class="page active" id="page-stories">
+  <div class="section-header">
+    <div class="eyebrow">Sizning hikoyangiz</div>
+    <h2 class="big-title">Alora haqida <em>hikoyalar</em></h2>
+    <p class="subtitle">O'zbek tilida -  turk tiliga tarjimasi bilan</p>
+  </div>
+
+  <div class="stories-container">
+
+    <!-- Story 1 -->
+    <div class="story-card">
+      <div class="story-card-header">
+        <div class="story-num">01</div>
+        <div class="story-meta">
+          <div class="story-card-title">Alora kim?</div>
+          <div class="story-card-sub">Tanishuv · Tanışma</div>
+        </div>
+      </div>
+      <div class="story-body">
+        <div class="story-lang-toggle">
+          <button class="story-lang-btn uz" onclick="toggleLang(this,'uz')">O'zbek</button>
+          <button class="story-lang-btn tr" onclick="toggleLang(this,'tr')">Türkçe</button>
+        </div>
+        <div class="story-text">
+          Alora -  Turkiyadan kelgan qiz. U nafaqat go'zal, balki ajoyib ruhli inson. Uning ko'zlari -  ikki chuqur ko'l: ichida ming bir sir. Alora o'zbek tilini o'rganmoqda va bu juda jasur qadam -  chunki sevgi tili har doim chegaralarni yengib o'tadi.<br><br>
+          U musiqani sevadi, kitob o'qiydi, dunyo madaniyatlariga qiziqadi. Alora faqat bir til emas -  yangi olamni ochmoqda. O'zbek tili -  bu nafaqat so'zlar, balki qalbning tili. Har bir so'z -  kichik bir sinoat, har bir jumla -  kichik bir musiqa.<br><br>
+          Biz Aloraga aytyapmiz: <em>"Xush kelibsiz, do'st. Bu til endi sizniki ham."</em>
+        </div>
+        <div class="story-text-tr">
+          Alora -  Türkiye'den gelen bir kız. O sadece güzel değil, aynı zamanda muhteşem bir ruha sahip. Gözleri -  iki derin göl: içinde bin bir sır var. Alora Özbekçe öğreniyor ve bu çok cesur bir adım -  çünkü sevgi dili her zaman sınırları aşar.<br><br>
+          O müziği seviyor, kitap okuyor, dünya kültürlerine ilgi duyuyor. Alora sadece bir dil değil -  yeni bir dünya açıyor. Özbek dili -  sadece kelimeler değil, kalbin dilidir. Her kelime küçük bir sanat, her cümle küçük bir müzik.<br><br>
+          Alora'ya diyoruz: <em>"Hoş geldin, dost. Bu dil artık senin de."</em>
+        </div>
+        <div class="story-vocab">
+          <div class="story-vocab-title">Bu hikoyadan so'zlar</div>
+          <div class="story-words">
+            <div class="story-word">go'zal <em>güzel</em></div>
+            <div class="story-word">ruh <em>ruh / can</em></div>
+            <div class="story-word">jasur <em>cesur</em></div>
+            <div class="story-word">sevgi <em>sevgi</em></div>
+            <div class="story-word">qalb <em>kalp</em></div>
+            <div class="story-word">xush kelibsiz <em>hoş geldiniz</em></div>
+            <div class="story-word">do'st <em>dost</em></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Story 2 -->
+    <div class="story-card">
+      <div class="story-card-header">
+        <div class="story-num">02</div>
+        <div class="story-meta">
+          <div class="story-card-title">Alora va musiqa</div>
+          <div class="story-card-sub">Musiqiy ruh · Müzikal ruh</div>
+        </div>
+      </div>
+      <div class="story-body">
+        <div class="story-lang-toggle">
+          <button class="story-lang-btn uz" onclick="toggleLang(this,'uz')">O'zbek</button>
+          <button class="story-lang-btn tr" onclick="toggleLang(this,'tr')">Türkçe</button>
+        </div>
+        <div class="story-text">
+          Alora musiqa eshitganda dunyo o'zgardi. Unga ko'ra, musiqa -  so'zsiz tildir. Klassik musiqa, jazz, indie -  barchasi uning qalbiga yo'l topadi. Gitara torlarining titrashi, pianino tugmalarining zarbi -  bular Aloraning ko'ngliga gul ekadi.<br><br>
+          O'zbek musiqasida ham shu sehr bor. Dutor -  ikki torli cholg'u -  o'zining nozik ovozi bilan yurakni eritadi. Doira zarbi -  qonni qizitadi. Shashmaqom -  olti maqomdan iborat klassik musiqa -  aql bovar qilmaydigan go'zallikda.<br><br>
+          Bir kuni Alora o'zbek kuyini eshitdi va ko'zlarida yosh paydo bo'ldi. Chunki ba'zi his-tuyg'ular hamma tilda bir xil gapiradi.
+        </div>
+        <div class="story-text-tr">
+          Alora müzik dinlediğinde dünya değişti. Ona göre müzik -  sözsüz bir dildir. Klasik müzik, caz, indie -  hepsi kalbine yol buluyor. Gitar tellerinin titreşimi, piyano tuşlarının darbesi -  bunlar Alora'nın gönlüne çiçek eker.<br><br>
+          Özbek müziğinde de aynı sihir var. Dutar -  iki telli bir saz -  narin sesiyle kalbi eritir. Def ritmi -  kanı ısıtır. Şaşmakam -  altı makamdan oluşan klasik müzik -  akıl almaz güzellikte.<br><br>
+          Bir gün Alora Özbek ezgisini duydu ve gözlerinde yaş belirdi. Çünkü bazı duygular her dilde aynı şeyi söyler.
+        </div>
+        <div class="story-vocab">
+          <div class="story-vocab-title">Bu hikoyadan so'zlar</div>
+          <div class="story-words">
+            <div class="story-word">musiqa <em>müzik</em></div>
+            <div class="story-word">kuy <em>ezgi / melodi</em></div>
+            <div class="story-word">dutor <em>dutar (çalgı)</em></div>
+            <div class="story-word">qalb <em>kalp</em></div>
+            <div class="story-word">yosh <em>yaş (göz yaşı)</em></div>
+            <div class="story-word">his-tuyg'u <em>duygu / his</em></div>
+            <div class="story-word">sehrli <em>büyülü</em></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Story 3 -->
+    <div class="story-card">
+      <div class="story-card-header">
+        <div class="story-num">03</div>
+        <div class="story-meta">
+          <div class="story-card-title">Alora va kitoblar</div>
+          <div class="story-card-sub">Sahifalar olami · Sayfaların dünyası</div>
+        </div>
+      </div>
+      <div class="story-body">
+        <div class="story-lang-toggle">
+          <button class="story-lang-btn uz" onclick="toggleLang(this,'uz')">O'zbek</button>
+          <button class="story-lang-btn tr" onclick="toggleLang(this,'tr')">Türkçe</button>
+        </div>
+        <div class="story-text">
+          Alora uchun kitob -  eng ishonchli do'st. U qo'lida kitob bo'lmasa o'zini yalang'och his qiladi. Kafeда qahva ichayotganda, yo'lda ketayotganda, kechasi yostiqda -  doim bir kitob uning yonida.<br><br>
+          U ko'proq psixologiya, falsafa va she'riyat o'qiydi. Inson ruhi qanday ishlaydi? Sevgi nima? Hayotning ma'nosi nima? Bu savollar Aloraning miyasini tinchitmaydi. Va kitoblar har safar yangi javob beradi -  yoki yangi savol tug'diradi.<br><br>
+          O'zbek adabiyotida ham shu savollar bor. Navoiyning g'azallari sevgini yulduzlarcha tasvirlaydi. Boburning she'rlari vatansizlikning og'rig'ini aytadi. Alora bu asarlarni o'qiganda o'zini ularga yaqin his qiladi -  chunki ruh chegarasiz.
+        </div>
+        <div class="story-text-tr">
+          Alora için kitap -  en güvenilir dost. Elinde kitap olmasa kendini çıplak hisseder. Kafede kahve içerken, yolda giderken, geceleyin yastıkta -  her zaman yanında bir kitap var.<br><br>
+          Çoğunlukla psikoloji, felsefe ve şiir okur. İnsan ruhu nasıl çalışır? Sevgi nedir? Hayatın anlamı nedir? Bu sorular Alora'nın zihnini rahat bırakmıyor. Ve kitaplar her seferinde yeni bir cevap veriyor -  ya da yeni bir soru doğuruyor.<br><br>
+          Özbek edebiyatında da bu sorular var. Nevai'nin gazelleri sevgiyi yıldızlar gibi tasvir eder. Babür'ün şiirleri vatansızlığın acısını anlatır. Alora bu eserleri okuyunca kendini onlara yakın hisseder -  çünkü ruhun sınırı yoktur.
+        </div>
+        <div class="story-vocab">
+          <div class="story-vocab-title">Bu hikoyadan so'zlar</div>
+          <div class="story-words">
+            <div class="story-word">kitob <em>kitap</em></div>
+            <div class="story-word">sahifa <em>sayfa</em></div>
+            <div class="story-word">she'r <em>şiir</em></div>
+            <div class="story-word">falsafa <em>felsefe</em></div>
+            <div class="story-word">ma'no <em>anlam / mana</em></div>
+            <div class="story-word">vatan <em>vatan</em></div>
+            <div class="story-word">g'azal <em>gazel</em></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Story 4 -->
+    <div class="story-card">
+      <div class="story-card-header">
+        <div class="story-num">04</div>
+        <div class="story-meta">
+          <div class="story-card-title">Alora va tabiat</div>
+          <div class="story-card-sub">Yer va osmon · Toprak ve gökyüzü</div>
+        </div>
+      </div>
+      <div class="story-body">
+        <div class="story-lang-toggle">
+          <button class="story-lang-btn uz" onclick="toggleLang(this,'uz')">O'zbek</button>
+          <button class="story-lang-btn tr" onclick="toggleLang(this,'tr')">Türkçe</button>
+        </div>
+        <div class="story-text">
+          Alora tabiatni sevadi -  ayniqsa tog' havosini. U dengiz va tog' o'rtasida bo'lsa, har ikkisini tanlaydi. Dengizning bepoyon kengligida erkinlik his qiladi, tog'ning qoyali siluetlarida kuch topadi.<br><br>
+          O'zbekiston -  quruq, cho'l mamlakatday tuyulishi mumkin. Lekin haqiqat boshqacha. Sharqda Tyan-Shan tog'lari osmonni tutib turadi. G'arbda Qizilqum cho'lining qumtepalar ostida yulduzlar eng yorqin yonadi. Amudaryoning ko'kish suvlari hayot beradi.<br><br>
+          Alora, bir kuni Chimyon tog'larida qor yog'ayotganda osmonga qarasang -  o'sha lahzada butun dunyo jimib qoladi. Faqat qor. Faqat sukunat. Faqat sen.
+        </div>
+        <div class="story-text-tr">
+          Alora doğayı sever -  özellikle dağ havasını. Deniz ve dağ arasında kalsa her ikisini de seçer. Denizin sonsuz enginliğinde özgürlük hisseder, dağın kayalık siluetlerinde güç bulur.<br><br>
+          Özbekistan -  kuru, çöl bir ülke gibi görünebilir. Ama gerçek farklı. Doğuda Tanrı Dağları gökyüzünü tutuyor. Batıda Kızılkum çölünün kum tepelerinin altında yıldızlar en parlak biçimde yanar. Amuderya'nın mavimsi suları hayat verir.<br><br>
+          Alora, bir gün Çimyon dağlarında kar yağarken gökyüzüne baksan -  o an bütün dünya sessizleşir. Sadece kar. Sadece sessizlik. Sadece sen.
+        </div>
+        <div class="story-vocab">
+          <div class="story-vocab-title">Bu hikoyadan so'zlar</div>
+          <div class="story-words">
+            <div class="story-word">tabiat <em>doğa / tabiat</em></div>
+            <div class="story-word">tog' <em>dağ</em></div>
+            <div class="story-word">dengiz <em>deniz</em></div>
+            <div class="story-word">cho'l <em>çöl</em></div>
+            <div class="story-word">qor <em>kar</em></div>
+            <div class="story-word">sukunat <em>sessizlik / sükût</em></div>
+            <div class="story-word">erkinlik <em>özgürlük</em></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Story 5 -->
+    <div class="story-card">
+      <div class="story-card-header">
+        <div class="story-num">05</div>
+        <div class="story-meta">
+          <div class="story-card-title">Alora va do'stlik</div>
+          <div class="story-card-sub">Ikki mamlakat, bir qalb · İki ülke, bir kalp</div>
+        </div>
+      </div>
+      <div class="story-body">
+        <div class="story-lang-toggle">
+          <button class="story-lang-btn uz" onclick="toggleLang(this,'uz')">O'zbek</button>
+          <button class="story-lang-btn tr" onclick="toggleLang(this,'tr')">Türkçe</button>
+        </div>
+        <div class="story-text">
+          Turkiya va O'zbekiston -  ikki qardosh xalq. Ikkalasida ham bir xil maqol bor: <em>"Do'st -  yo'lda pul emas, ko'ngil."</em> Ikkalasida ham choy ichilib, dasturxon yozilib, mehmon xudo mehmoniga tenglashtiriladi.<br><br>
+          Alora o'zbek tilinini o'rganayotganda, aslida u o'z qardoshiga qaytmoqda. Chunki turkcha "gelmek" va o'zbekcha "kelmoq" -  bir ildizdan. "Sevgi" ikkalasida ham bir xil yuraklarda yashaydigan so'z.<br><br>
+          Do'stlik -  til bilmaydi. Lekin til bilsang -  do'stlik chuqurroq bo'ladi. Alora shu chuqurlikni izlamoqda. Va u allaqachon topib bo'ldi.
+        </div>
+        <div class="story-text-tr">
+          Türkiye ve Özbekistan -  iki kardeş halk. Her ikisinde de aynı atasözü var: <em>"Dost -  yolda para değil, gönüldür."</em> Her ikisinde de çay içilir, sofra kurulur, misafir tanrı misafirine eşitlenir.<br><br>
+          Alora Özbekçe öğrenirken aslında kardeşine geri dönüyor. Çünkü Türkçe "gelmek" ve Özbekçe "kelmoq" -  aynı kökten. "Sevgi" her ikisinde de kalplerde aynı şekilde yaşayan bir kelime.<br><br>
+          Dostluk -  dil bilmez. Ama dil bilirsen -  dostluk daha derin olur. Alora bu derinliği arıyor. Ve onu çoktan buldu.
+        </div>
+        <div class="story-vocab">
+          <div class="story-vocab-title">Bu hikoyadan so'zlar</div>
+          <div class="story-words">
+            <div class="story-word">do'stlik <em>dostluk</em></div>
+            <div class="story-word">qardosh <em>kardeş / soydaş</em></div>
+            <div class="story-word">mehmon <em>misafir</em></div>
+            <div class="story-word">ko'ngil <em>gönül</em></div>
+            <div class="story-word">chuqur <em>derin</em></div>
+            <div class="story-word">ildiz <em>kök</em></div>
+            <div class="story-word">allaqachon <em>çoktan</em></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ====== VOCAB PAGE ====== -->
+<div class="page" id="page-vocab">
+  <div class="section-header">
+    <div class="eyebrow">500+ so'z</div>
+    <h2 class="big-title">To'liq <em>lug'at</em></h2>
+    <p class="subtitle">Kartochkani bosib teskari tomon -  tarjimani ko'ring</p>
+  </div>
+  <div class="vocab-controls">
+    <div class="vocab-controls-inner">
+      <input class="search-box" type="text" placeholder="So'z qidirish..." id="vocabSearch" oninput="filterVocab()">
+      <div class="filter-chips" id="filterChips">
+        <button class="chip active" onclick="filterByTag('all',this)">Barchasi</button>
+        <button class="chip" onclick="filterByTag('hayot',this)">Hayot</button>
+        <button class="chip" onclick="filterByTag('his',this)">His-tuyg'u</button>
+        <button class="chip" onclick="filterByTag('tabiat',this)">Tabiat</button>
+        <button class="chip" onclick="filterByTag('san\'at',this)">San'at</button>
+        <button class="chip" onclick="filterByTag('psixologiya',this)">Psixologiya</button>
+        <button class="chip" onclick="filterByTag('sport',this)">Sport</button>
+        <button class="chip" onclick="filterByTag('adabiyot',this)">Adabiyot</button>
+        <button class="chip" onclick="filterByTag('madaniyat',this)">Madaniyat</button>
+      </div>
+    </div>
+  </div>
+  <div class="vocab-grid-container">
+    <div class="vocab-count" id="vocabCount">500+ so'z ko'rsatilmoqda</div>
+    <div class="vocab-grid" id="vocabGrid"></div>
+  </div>
+</div>
+
+<!-- ====== PHRASES PAGE ====== -->
+<div class="page" id="page-phrases">
+  <div class="section-header">
+    <div class="eyebrow">Kundalik muloqot</div>
+    <h2 class="big-title">Muhim <em>iboralar</em></h2>
+    <p class="subtitle">O'zbek tilida -  turk tiliga tarjimasi bilan</p>
+  </div>
+  <div class="phrases-container" id="phrasesContainer"></div>
+</div>
+
+<!-- ====== TOPICS PAGE ====== -->
+<div class="page" id="page-topics">
+  <div class="section-header">
+    <div class="eyebrow">Chuqur bilim</div>
+    <h2 class="big-title">Qiziqarli <em>mavzular</em></h2>
+    <p class="subtitle">Madaniyat, san'at, psixologiya, sport va boshqalar</p>
+  </div>
+  <div class="topics-container">
+    <div class="topic-cards-grid" id="topicsGrid"></div>
+  </div>
+</div>
+
+<!-- ====== FLASHCARDS PAGE ====== -->
+<div class="page" id="page-flashcards">
+  <div class="section-header">
+    <div class="eyebrow">O'yin rejimi</div>
+    <h2 class="big-title">Flashcard <em>o'yini</em></h2>
+    <p class="subtitle">Kartochkani bosing -  javobni ko'ring</p>
+  </div>
+  <div class="flashcard-container">
+    <div class="fc-progress"><div class="fc-progress-bar" id="fcProgress"></div></div>
+    <div class="fc-counter" id="fcCounter">01</div>
+    <div class="fc-score" id="fcScore">0 to'g'ri · 0 noto'g'ri</div>
+
+    <div class="flashcard" id="flashcard" onclick="revealCard()">
+      <div class="fc-inner" id="fcInner">
+        <div class="fc-front">
+          <div class="fc-cat" id="fcCat">Kategoriya</div>
+          <div class="fc-word" id="fcWord">So'z</div>
+          <div class="fc-hint">bosing → javob</div>
+        </div>
+        <div class="fc-back">
+          <div class="fc-cat" id="fcCatBack">Kategoriya</div>
+          <div class="fc-answer" id="fcAnswer">Tarjima</div>
+          <div class="fc-example" id="fcExample">Misol</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fc-controls" id="fcControls" style="display:none">
+      <button class="fc-btn wrong" onclick="nextCard(false)">✕ Bilmadim</button>
+      <button class="fc-btn right" onclick="nextCard(true)">✓ Bildim</button>
+    </div>
+    <div class="fc-nav-hint" id="fcNavHint">Bosing yoki → klavisha</div>
+  </div>
+</div>
+
+<script>
+// ====== DATA ======
+const VOCAB = [
+  // HAYOT
+  {uz:"Uy",tr:"Ev",ex:"Bu mening uyim -  Bu benim evim",cat:"hayot"},
+  {uz:"Oila",tr:"Aile",ex:"Mening oilam katta -  Ailem büyük",cat:"hayot"},
+  {uz:"Do'st",tr:"Arkadaş / Dost",ex:"U mening eng yaxshi do'stim",cat:"hayot"},
+  {uz:"Mehmon",tr:"Misafir",ex:"Mehmon -  xudo mehmon",cat:"hayot"},
+  {uz:"Dasturxon",tr:"Sofra",ex:"Dasturxon yoz -  Sofra kur",cat:"hayot"},
+  {uz:"Non",tr:"Ekmek",ex:"O'zbek noni -  Özbek ekmeği",cat:"hayot"},
+  {uz:"Choy",tr:"Çay",ex:"Bir piyola choy -  bir bardak çay",cat:"hayot"},
+  {uz:"Ovqat",tr:"Yemek",ex:"Ovqat pishirmoq -  yemek pişirmek",cat:"hayot"},
+  {uz:"Bozor",tr:"Pazar / Çarşı",ex:"Bozorga bormoq -  pazara gitmek",cat:"hayot"},
+  {uz:"Ko'cha",tr:"Sokak / Cadde",ex:"Ko'chada o'ynash -  sokakta oynamak",cat:"hayot"},
+  {uz:"Maktab",tr:"Okul",ex:"Maktabga bormoq -  okula gitmek",cat:"hayot"},
+  {uz:"Ish",tr:"İş",ex:"Ish joyim -  iş yerim",cat:"hayot"},
+  {uz:"Pul",tr:"Para",ex:"Bu qancha? -  Bu ne kadar?",cat:"hayot"},
+  {uz:"Vaqt",tr:"Zaman / Vakit",ex:"Vaqt -  eng qimmatli narsa",cat:"hayot"},
+  {uz:"Kun",tr:"Gün",ex:"Yaxshi kun -  iyi günler",cat:"hayot"},
+  {uz:"Kecha",tr:"Gece",ex:"Yaxshi kecha -  iyi geceler",cat:"hayot"},
+  {uz:"Tong",tr:"Sabah / Şafak",ex:"Tong otdi -  gün ağardı",cat:"hayot"},
+  {uz:"Kiyim",tr:"Giysi / Elbise",ex:"Yangi kiyim -  yeni elbise",cat:"hayot"},
+  {uz:"Suv",tr:"Su",ex:"Bir stakan suv -  bir bardak su",cat:"hayot"},
+  {uz:"Uxlamoq",tr:"Uyumak",ex:"Men uxlayapman -  uyuyorum",cat:"hayot"},
+  {uz:"Yemoq",tr:"Yemek (yimek)",ex:"Men yeyapman -  yiyorum",cat:"hayot"},
+  {uz:"Ichmoq",tr:"İçmek",ex:"Choy ichmoq -  çay içmek",cat:"hayot"},
+  {uz:"Ketmoq",tr:"Gitmek",ex:"Ketaman -  gidiyorum",cat:"hayot"},
+  {uz:"Kelmoq",tr:"Gelmek",ex:"Kelaman -  geliyorum",cat:"hayot"},
+  {uz:"Ko'rmoq",tr:"Görmek",ex:"Ko'raman -  görüyorum",cat:"hayot"},
+  {uz:"Eshitmoq",tr:"Duymak / İşitmek",ex:"Eshitaman -  duyuyorum",cat:"hayot"},
+  {uz:"Gapirmoq",tr:"Konuşmak",ex:"Sekin gapiring -  yavaş konuşun",cat:"hayot"},
+  {uz:"Yozmoq",tr:"Yazmak",ex:"Xat yozmoq -  mektup yazmak",cat:"hayot"},
+  {uz:"O'qimoq",tr:"Okumak",ex:"Kitob o'qimoq -  kitap okumak",cat:"hayot"},
+  {uz:"O'ynash",tr:"Oynamak",ex:"Futbol o'ynash -  futbol oynamak",cat:"hayot"},
+
+  // HIS-TUYG'U
+  {uz:"Sevgi",tr:"Sevgi / Aşk",ex:"Sevgi -  eng kuchli kuch",cat:"his"},
+  {uz:"Mehr",tr:"Şefkat / Muhabbet",ex:"Mehr bilan -  şefkatle",cat:"his"},
+  {uz:"Xursandlik",tr:"Mutluluk / Sevinç",ex:"Ko'nglim xursand -  gönlüm mutlu",cat:"his"},
+  {uz:"G'am",tr:"Hüzün / Keder",ex:"G'amgin yurak -  kederli kalp",cat:"his"},
+  {uz:"Qo'rquv",tr:"Korku",ex:"Qo'rqmayman -  korkmuyorum",cat:"his"},
+  {uz:"Hayrat",tr:"Hayranlık / Şaşkınlık",ex:"Hayratda qolmoq -  şaşkına dönmek",cat:"his"},
+  {uz:"Umid",tr:"Umut / Ümit",ex:"Umid -  yulduz",cat:"his"},
+  {uz:"Ishonch",tr:"Güven / İnanç",ex:"O'ziga ishonch -  kendine güven",cat:"his"},
+  {uz:"Sog'inch",tr:"Özlem / Hasret",ex:"Vatan sog'inchi -  vatan hasreti",cat:"his"},
+  {uz:"Norozilik",tr:"Memnuniyetsizlik",ex:"Noroziligim bor -  memnun değilim",cat:"his"},
+  {uz:"G'azab",tr:"Öfke / Gazap",ex:"G'azab ichida -  içinde öfke",cat:"his"},
+  {uz:"Tinchlik",tr:"Huzur / Barış",ex:"Ichki tinchlik -  iç huzuru",cat:"his"},
+  {uz:"Ilhom",tr:"İlham",ex:"Ilhom olmoq -  ilham almak",cat:"his"},
+  {uz:"Mamnunlik",tr:"Memnuniyet",ex:"Mamnunman -  memnunum",cat:"his"},
+  {uz:"Uyat",tr:"Utanç / Ar",ex:"Uyat hissi -  utanç hissi",cat:"his"},
+  {uz:"Hafsala",tr:"İstek / Şevk",ex:"Hafsalam yo'q -  isteğim yok",cat:"his"},
+  {uz:"Orzу",tr:"Arzu / Dilek",ex:"Mening orzuyim -  benim dileğim",cat:"his"},
+  {uz:"Quvonch",tr:"Sevinç / Neşe",ex:"Quvonch bilan -  sevinçle",cat:"his"},
+  {uz:"Tashvish",tr:"Endişe / Kaygı",ex:"Tashvish qilma -  merak etme",cat:"his"},
+  {uz:"Ehtirom",tr:"Saygı / Hürmet",ex:"Ehtirom bilan -  saygıyla",cat:"his"},
+
+  // TABIAT
+  {uz:"Tog'",tr:"Dağ",ex:"Tog'ga chiqmoq -  dağa çıkmak",cat:"tabiat"},
+  {uz:"Daryo",tr:"Nehir",ex:"Daryo bo'yida -  nehir kenarında",cat:"tabiat"},
+  {uz:"Ko'l",tr:"Göl",ex:"Tinch ko'l -  sakin göl",cat:"tabiat"},
+  {uz:"Cho'l",tr:"Çöl",ex:"Qizilqum cho'li -  Kızılkum çölü",cat:"tabiat"},
+  {uz:"O'rmon",tr:"Orman",ex:"Qalin o'rmon -  yoğun orman",cat:"tabiat"},
+  {uz:"Quyosh",tr:"Güneş",ex:"Quyosh chiqdi -  güneş doğdu",cat:"tabiat"},
+  {uz:"Oy",tr:"Ay",ex:"To'lin oy -  dolunay",cat:"tabiat"},
+  {uz:"Yulduz",tr:"Yıldız",ex:"Ming yulduz -  bin yıldız",cat:"tabiat"},
+  {uz:"Osmon",tr:"Gökyüzü / Sema",ex:"Ko'k osmon -  mavi gökyüzü",cat:"tabiat"},
+  {uz:"Qor",tr:"Kar",ex:"Qor yog'moqda -  kar yağıyor",cat:"tabiat"},
+  {uz:"Yomg'ir",tr:"Yağmur",ex:"Yomg'ir yog'di -  yağmur yağdı",cat:"tabiat"},
+  {uz:"Shamol",tr:"Rüzgar",ex:"Kuchli shamol -  güçlü rüzgar",cat:"tabiat"},
+  {uz:"Gul",tr:"Çiçek",ex:"Qizil gul -  kırmızı çiçek",cat:"tabiat"},
+  {uz:"Daraxt",tr:"Ağaç",ex:"Katta daraxt -  büyük ağaç",cat:"tabiat"},
+  {uz:"Lola",tr:"Lale",ex:"O'zbek lalasi -  Özbek lalesi",cat:"tabiat"},
+  {uz:"Anor",tr:"Nar",ex:"Shirin anor -  tatlı nar",cat:"tabiat"},
+  {uz:"Uzum",tr:"Üzüm",ex:"Qora uzum -  siyah üzüm",cat:"tabiat"},
+  {uz:"Shaftoli",tr:"Şeftali",ex:"Yetilgan shaftoli -  olmuş şeftali",cat:"tabiat"},
+  {uz:"Vodiy",tr:"Vadi",ex:"Farg'ona vodiysi -  Fergana vadisi",cat:"tabiat"},
+  {uz:"Tog' havosi",tr:"Dağ havası",ex:"Toza tog' havosi -  temiz dağ havası",cat:"tabiat"},
+
+  // SAN'AT
+  {uz:"Rasm",tr:"Resim / Tablo",ex:"Rasm chizmoq -  resim çizmek",cat:"san'at"},
+  {uz:"San'at",tr:"Sanat",ex:"San'at asari -  sanat eseri",cat:"san'at"},
+  {uz:"Musiqa",tr:"Müzik",ex:"Klassik musiqa -  klasik müzik",cat:"san'at"},
+  {uz:"Kuy",tr:"Ezgi / Melodi",ex:"Chiroyli kuy -  güzel ezgi",cat:"san'at"},
+  {uz:"Raqs",tr:"Dans",ex:"Milliy raqs -  milli dans",cat:"san'at"},
+  {uz:"She'r",tr:"Şiir",ex:"She'r yozmoq -  şiir yazmak",cat:"san'at"},
+  {uz:"Qo'shiq",tr:"Şarkı",ex:"Yangi qo'shiq -  yeni şarkı",cat:"san'at"},
+  {uz:"Teatr",tr:"Tiyatro",ex:"Teatrga borish -  tiyatroya gitmek",cat:"san'at"},
+  {uz:"Kino",tr:"Sinema / Film",ex:"Yaxshi kino -  iyi film",cat:"san'at"},
+  {uz:"Suratchi",tr:"Ressam / Fotoğrafçı",ex:"Mashhur suratchi -  ünlü ressam",cat:"san'at"},
+  {uz:"Naqsh",tr:"Desen / Nakış",ex:"O'zbek naqshlari -  Özbek desenleri",cat:"san'at"},
+  {uz:"Kashta",tr:"Nakış / İşleme",ex:"Qo'l bilan kashta -  elle işleme",cat:"san'at"},
+  {uz:"Rang",tr:"Renk",ex:"Qanday rang? -  ne renk?",cat:"san'at"},
+  {uz:"Chiziq",tr:"Çizgi",ex:"To'g'ri chiziq -  düz çizgi",cat:"san'at"},
+  {uz:"Haykaltaroshlik",tr:"Heykeltraşlık",ex:"Marmar haykal -  mermer heykel",cat:"san'at"},
+  {uz:"Me'morchilik",tr:"Mimarlık",ex:"O'zbek me'morchiligi -  Özbek mimarisi",cat:"san'at"},
+  {uz:"Gumbaz",tr:"Kubbe",ex:"Ko'k gumbaz -  mavi kubbe",cat:"san'at"},
+  {uz:"Minora",tr:"Minare",ex:"Baland minora -  yüksek minare",cat:"san'at"},
+  {uz:"Atlas",tr:"Atlas / İpek kumaş",ex:"Marg'ilon atlasi -  Margilon atlası",cat:"san'at"},
+  {uz:"Dutor",tr:"Dutar (iki telli saz)",ex:"Dutor chalmoq -  dutar çalmak",cat:"san'at"},
+
+  // PSIXOLOGIYA
+  {uz:"Ong",tr:"Bilinç",ex:"Ong va ongsizlik",cat:"psixologiya"},
+  {uz:"Ongsizlik",tr:"Bilinçdışı",ex:"Ongsiz xatti-harakat",cat:"psixologiya"},
+  {uz:"Shaxsiyat",tr:"Kişilik / Karakter",ex:"Kuchli shaxsiyat -  güçlü kişilik",cat:"psixologiya"},
+  {uz:"Xarakter",tr:"Karakter",ex:"Uning xarakteri yaxshi",cat:"psixologiya"},
+  {uz:"Motivatsiya",tr:"Motivasyon",ex:"Motivatsiya topmoq -  motivasyon bulmak",cat:"psixologiya"},
+  {uz:"Stres",tr:"Stres",ex:"Stres bilan kurashmoq",cat:"psixologiya"},
+  {uz:"Bardosh",tr:"Sabır / Dayanıklılık",ex:"Bardosh qilmoq -  sabretmek",cat:"psixologiya"},
+  {uz:"Empatiya",tr:"Empati",ex:"Empatiya his qilmoq",cat:"psixologiya"},
+  {uz:"O'z-o'zini sevish",tr:"Öz sevgi",ex:"O'zingni sev -  kendini sev",cat:"psixologiya"},
+  {uz:"Chegaralar",tr:"Sınırlar",ex:"Shaxsiy chegaralar -  kişisel sınırlar",cat:"psixologiya"},
+  {uz:"Tushkunlik",tr:"Çöküntü / Depresyon",ex:"Ruhiy tushkunlik",cat:"psixologiya"},
+  {uz:"O'sish",tr:"Büyüme / Gelişim",ex:"Shaxsiy o'sish -  kişisel gelişim",cat:"psixologiya"},
+  {uz:"Muammo",tr:"Sorun / Problem",ex:"Muammoni hal qilmoq",cat:"psixologiya"},
+  {uz:"Echim",tr:"Çözüm",ex:"Yaxshi echim -  iyi çözüm",cat:"psixologiya"},
+  {uz:"Xotira",tr:"Hafıza / Anı",ex:"Xotiralarni saqlash",cat:"psixologiya"},
+  {uz:"Tafakkur",tr:"Düşünce / Tefekkür",ex:"Chuqur tafakkur",cat:"psixologiya"},
+  {uz:"Maqsad",tr:"Hedef / Amaç",ex:"Hayot maqsadi -  hayat amacı",cat:"psixologiya"},
+  {uz:"Irod'a",tr:"İrade",ex:"Kuchli iroda -  güçlü irade",cat:"psixologiya"},
+  {uz:"Terapiya",tr:"Terapi",ex:"Psixologik terapiya",cat:"psixologiya"},
+  {uz:"Ongli yashash",tr:"Bilinçli yaşam",ex:"Ongli bo'lish -  farkında olmak",cat:"psixologiya"},
+
+  // SPORT
+  {uz:"Futbol",tr:"Futbol",ex:"Futbol o'ynamoq -  futbol oynamak",cat:"sport"},
+  {uz:"Boks",tr:"Boks",ex:"Boks musobaqasi -  boks yarışması",cat:"sport"},
+  {uz:"Kurash",tr:"Güreş",ex:"Milliy kurash -  milli güreş",cat:"sport"},
+  {uz:"Yugurish",tr:"Koşma",ex:"Ertalab yugurish -  sabah koşusu",cat:"sport"},
+  {uz:"Suzish",tr:"Yüzme",ex:"Hovuzda suzish -  havuzda yüzme",cat:"sport"},
+  {uz:"Tennis",tr:"Tenis",ex:"Tennis o'ynamoq -  tenis oynamak",cat:"sport"},
+  {uz:"Voleybol",tr:"Voleybol",ex:"Voleybol to'pi -  voleybol topu",cat:"sport"},
+  {uz:"Gimnastika",tr:"Jimnastik",ex:"Badiiy gimnastika",cat:"sport"},
+  {uz:"G'alaba",tr:"Zafer / Galibiyet",ex:"G'alaba qozonmoq -  zafer kazanmak",cat:"sport"},
+  {uz:"Medal",tr:"Madalya",ex:"Oltin medal -  altın madalya",cat:"sport"},
+  {uz:"Chempion",tr:"Şampiyon",ex:"Dunyo chempioni -  dünya şampiyonu",cat:"sport"},
+  {uz:"Musobaqa",tr:"Yarışma",ex:"Sport musobaqasi -  spor yarışması",cat:"sport"},
+  {uz:"Mashq",tr:"Egzersiz / Antrenman",ex:"Mashq qilmoq -  antrenman yapmak",cat:"sport"},
+  {uz:"Jamoa",tr:"Takım / Ekip",ex:"Bizning jamoa -  bizim takımımız",cat:"sport"},
+  {uz:"Olimpiada",tr:"Olimpiyat",ex:"Olimpiada medallari",cat:"sport"},
+  {uz:"Jismoniy tarbiya",tr:"Beden eğitimi",ex:"Jismoniy tarbiya darsi",cat:"sport"},
+  {uz:"Yutmoq",tr:"Kazanmak",ex:"Biz yutdik -  biz kazandık",cat:"sport"},
+  {uz:"Mag'lubiyat",tr:"Yenilgi",ex:"Mag'lubiyatdan dars olmoq",cat:"sport"},
+  {uz:"Ot poygasi",tr:"At yarışı",ex:"Qadimiy ot poygasi -  eski at yarışı",cat:"sport"},
+  {uz:"Taekwondo",tr:"Tekvando",ex:"Taekwondo darsi",cat:"sport"},
+
+  // ADABIYOT
+  {uz:"Kitob",tr:"Kitap",ex:"Kitob o'qimoq -  kitap okumak",cat:"adabiyot"},
+  {uz:"Roman",tr:"Roman",ex:"Mashhur roman -  ünlü roman",cat:"adabiyot"},
+  {uz:"Hikoya",tr:"Hikaye / Öykü",ex:"Qisqa hikoya -  kısa hikaye",cat:"adabiyot"},
+  {uz:"She'riyat",tr:"Şiirsel / Şiir sanatı",ex:"O'zbek she'riyati",cat:"adabiyot"},
+  {uz:"G'azal",tr:"Gazel",ex:"Navoiy g'azali -  Nevai gazeli",cat:"adabiyot"},
+  {uz:"Doston",tr:"Destan",ex:"Qahramonlik dostoni",cat:"adabiyot"},
+  {uz:"Muallif",tr:"Yazar / Muallif",ex:"Sevimli muallif -  sevdiğin yazar",cat:"adabiyot"},
+  {uz:"Qahramonlik",tr:"Kahramanlık",ex:"Qahramonlik hikoyasi",cat:"adabiyot"},
+  {uz:"Sahifa",tr:"Sayfa",ex:"Birinchi sahifa -  ilk sayfa",cat:"adabiyot"},
+  {uz:"Bob",tr:"Bölüm / Fasıl",ex:"Uchinchi bob -  üçüncü bölüm",cat:"adabiyot"},
+  {uz:"Kütübxona",tr:"Kütüphane",ex:"Shahar kutubxonasi",cat:"adabiyot"},
+  {uz:"Tarjima",tr:"Tercüme / Çeviri",ex:"Tarjima qilmoq -  çevirmek",cat:"adabiyot"},
+  {uz:"Tilshunoslik",tr:"Dilbilim / Linguistik",ex:"O'zbek tilshunosligi",cat:"adabiyot"},
+  {uz:"Ijod",tr:"Yaratıcılık / Sanat",ex:"Ijodiy ish -  yaratıcı iş",cat:"adabiyot"},
+  {uz:"Nashr",tr:"Yayın / Baskı",ex:"Yangi nashr -  yeni baskı",cat:"adabiyot"},
+
+  // MADANIYAT
+  {uz:"Navro'z",tr:"Nevruz",ex:"Navro'z bayrami -  Nevruz bayramı",cat:"madaniyat"},
+  {uz:"To'y",tr:"Düğün / Toy",ex:"To'y marosimi -  düğün töreni",cat:"madaniyat"},
+  {uz:"Bayram",tr:"Bayram",ex:"Baxt bayram -  mutlu bayramlar",cat:"madaniyat"},
+  {uz:"An'ana",tr:"Gelenek / Töre",ex:"Milliy an'ana -  milli gelenek",cat:"madaniyat"},
+  {uz:"Marosim",tr:"Tören / Ritüel",ex:"Milliy marosim -  milli tören",cat:"madaniyat"},
+  {uz:"Millat",tr:"Millet / Ulus",ex:"O'zbek millati -  Özbek milleti",cat:"madaniyat"},
+  {uz:"Til",tr:"Dil",ex:"O'zbek tili -  Özbek dili",cat:"madaniyat"},
+  {uz:"Tarix",tr:"Tarih",ex:"Buyuk tarix -  büyük tarih",cat:"madaniyat"},
+  {uz:"Meros",tr:"Miras",ex:"Madaniy meros -  kültürel miras",cat:"madaniyat"},
+  {uz:"Osh",tr:"Özbek Plovı",ex:"Milliy taom -  milli yemek",cat:"madaniyat"},
+  {uz:"Samarqand",tr:"Semerkant",ex:"Buyuk Samarqand -  Büyük Semerkant",cat:"madaniyat"},
+  {uz:"Buxoro",tr:"Buhara",ex:"Qadimiy Buxoro -  kadim Buhara",cat:"madaniyat"},
+  {uz:"Ipak yo'li",tr:"İpek Yolu",ex:"Qadimiy Ipak yo'li",cat:"madaniyat"},
+  {uz:"Do'ppi",tr:"Özbek takke / Kalpak",ex:"O'zbek do'ppisi",cat:"madaniyat"},
+  {uz:"Suzani",tr:"Suzani (işlemeli kumaş)",ex:"Qo'l bilan suzani -  el işi suzani",cat:"madaniyat"},
+  {uz:"Karvon",tr:"Kervan",ex:"Savdo karvoni -  ticaret kervanı",cat:"madaniyat"},
+  {uz:"Madrasa",tr:"Medrese",ex:"Registon madrasasi",cat:"madaniyat"},
+  {uz:"Maqom",tr:"Makam (müzik)",ex:"Shashmaqom -  Altı Makam",cat:"madaniyat"},
+  {uz:"Mehmonxona",tr:"Misafirhane / Otel",ex:"Mehmonxona xona -  otel odası",cat:"madaniyat"},
+  {uz:"Mahalla",tr:"Mahalle",ex:"O'zbek mahallasi",cat:"madaniyat"},
+];
+
+const PHRASES = [
+  {section:"Salomlashish · Selamlaşma", items:[
+    {uz:"Assalomu alaykum",tr:"Selamünaleyküm -  Merhaba"},
+    {uz:"Valaykum assalom",tr:"Aleykümselam -  Sana da merhaba"},
+    {uz:"Salom!",tr:"Merhaba! / Selam!"},
+    {uz:"Xayr! Ko'rishguncha!",tr:"Hoşça kal! Görüşürüz!"},
+    {uz:"Qanday yashayapsiz?",tr:"Nasılsınız? (resmi)"},
+    {uz:"Yaxshi, rahmat. O'zingiz-chi?",tr:"İyiyim, teşekkürler. Ya siz?"},
+    {uz:"Hammasi yaxshi!",tr:"Her şey iyi!"},
+    {uz:"Yana ko'rishguncha!",tr:"Bir daha görüşmek üzere!"},
+    {uz:"Ertaga ko'rishguncha",tr:"Yarın görüşürüz"},
+    {uz:"Kechqurun ko'rishguncha",tr:"Akşam görüşürüz"},
+  ]},
+  {section:"Tanishuv · Tanışma", items:[
+    {uz:"Ismingiz nima?",tr:"Adınız / İsminiz ne?"},
+    {uz:"Mening ismim Alora.",tr:"Benim adım Alora."},
+    {uz:"Qayerdan kelasiz?",tr:"Nerelisiniz? Nereden geliyorsunuz?"},
+    {uz:"Men Turkiyadan kelaman.",tr:"Türkiye'den geliyorum."},
+    {uz:"Men Istanbul'dan.",tr:"İstanbul'danım."},
+    {uz:"Nechasiz?",tr:"Kaç yaşındasınız?"},
+    {uz:"O'zbek tilini o'rganmoqdaman.",tr:"Özbekçe öğreniyorum."},
+    {uz:"Siz yaxshi gapirасiz!",tr:"Çok iyi konuşuyorsunuz!"},
+    {uz:"Hali o'rganmoqdaman.",tr:"Hâlâ öğreniyorum."},
+    {uz:"Turk tili va o'zbek tili o'xshash.",tr:"Türkçe ve Özbekçe birbirine benziyor."},
+  ]},
+  {section:"Muhabbat va do'stlik · Sevgi ve Dostluk", items:[
+    {uz:"Seni sevaman.",tr:"Seni seviyorum."},
+    {uz:"Sen mening eng yaxshi do'stim.",tr:"Sen benim en iyi arkadaşımsın."},
+    {uz:"Seni sog'indim.",tr:"Seni özledim."},
+    {uz:"Siz men uchun muhimsiz.",tr:"Benim için önemlisiniz."},
+    {uz:"Ko'nglim to'q.",tr:"Kalbim dolu / Huzurluyum."},
+    {uz:"Siz bilan bo'lganda baxtliman.",tr:"Seninle olunca mutluyum."},
+    {uz:"Mehr bilan.",tr:"Sevgiyle / Şefkatle."},
+    {uz:"Do'stlik -  eng katta boylik.",tr:"Dostluk -  en büyük zenginliktir."},
+    {uz:"Sizni qadrlayaman.",tr:"Sizi takdir ediyorum / değer veriyorum."},
+    {uz:"Hamisha yoningdaman.",tr:"Her zaman yanındayım."},
+  ]},
+  {section:"Madaniyat va mehmonnavozlik · Kültür ve Misafirperverlik", items:[
+    {uz:"Choy ichasizmi?",tr:"Çay içer misiniz?"},
+    {uz:"Marhamat, o'ting.",tr:"Buyurun, geçin."},
+    {uz:"Dasturxonga marhamat.",tr:"Sofrayı buyurun."},
+    {uz:"Ovqat tayyorladim.",tr:"Yemek hazırladım."},
+    {uz:"Ishtaha bilan!",tr:"Afiyet olsun!"},
+    {uz:"Juda mazali!",tr:"Çok lezzetli!"},
+    {uz:"Rahmat, to'ydim.",tr:"Teşekkürler, doydum."},
+    {uz:"Uyingiz juda chiroyli!",tr:"Eviniz çok güzel!"},
+    {uz:"Qabul qiling.",tr:"Kabul edin / Buyurun."},
+    {uz:"Sizni ko'rib xursand bo'ldim.",tr:"Sizi görmekten mutlu oldum."},
+  ]},
+  {section:"His-tuyg'ular · Duygular", items:[
+    {uz:"Men xursandman.",tr:"Mutluyum / Sevinçliyim."},
+    {uz:"Men g'amginman.",tr:"Üzgünüm / Hüzünlüyüm."},
+    {uz:"Bu menga qiyin.",tr:"Bu benim için zor."},
+    {uz:"Hayratlandim!",tr:"Şaşırdım! / Hayran kaldım!"},
+    {uz:"Men charchadim.",tr:"Yoruldum."},
+    {uz:"Ko'nglim yengil.",tr:"Gönlüm ferah / hafifledim."},
+    {uz:"Kechiring meni.",tr:"Beni affedin / özür dilerim."},
+    {uz:"Umidim bor.",tr:"Umudum var."},
+    {uz:"Tashvish qilma.",tr:"Merak etme / endişelenme."},
+    {uz:"Hammasi yaxshi bo'ladi.",tr:"Her şey iyi olacak."},
+  ]},
+  {section:"Musiqa va san'at · Müzik ve Sanat", items:[
+    {uz:"Musiqa eshitishni yaxshi ko'raman.",tr:"Müzik dinlemeyi seviyorum."},
+    {uz:"Bu kuy juda go'zal!",tr:"Bu ezgi çok güzel!"},
+    {uz:"Qaysi janr?",tr:"Hangi tür? / Hangi genre?"},
+    {uz:"Gitara chalasizmi?",tr:"Gitar çalıyor musunuz?"},
+    {uz:"Bu rasm kimniki?",tr:"Bu resim kime ait?"},
+    {uz:"San'at -  ruhning tili.",tr:"Sanat -  ruhun dilidir."},
+    {uz:"Bu film yaxshi.",tr:"Bu film iyi."},
+    {uz:"Men teatrni sevaman.",tr:"Tiyatroyu seviyorum."},
+    {uz:"Kontsertga borasizmi?",tr:"Konsere gidiyor musunuz?"},
+    {uz:"Bu asarni ko'rib hayron bo'ldim.",tr:"Bu eseri görünce hayran kaldım."},
+  ]},
+  {section:"Tabiat va sayohat · Doğa ve Seyahat", items:[
+    {uz:"Bu juda chiroyli.",tr:"Bu çok güzel."},
+    {uz:"Tog'lar meni hayratga soladi.",tr:"Dağlar beni hayrete düşürüyor."},
+    {uz:"Dengizni sevaman.",tr:"Denizi seviyorum."},
+    {uz:"Bugun havo yaxshi.",tr:"Bugün hava güzel."},
+    {uz:"Qayerga borasiz?",tr:"Nereye gidiyorsunuz?"},
+    {uz:"Samarqandga bormoqchiman.",tr:"Semerkant'a gitmek istiyorum."},
+    {uz:"Bu yo'l uzoqmi?",tr:"Bu yol uzak mı?"},
+    {uz:"Pasport qayerda?",tr:"Pasaport nerede?"},
+    {uz:"Mehmonxona bormi?",tr:"Otel var mı?"},
+    {uz:"Shahar markazi qayerda?",tr:"Şehir merkezi nerede?"},
+  ]},
+  {section:"Psixologiya va o'zlik · Psikoloji ve Benlik", items:[
+    {uz:"O'zingni sev.",tr:"Kendini sev."},
+    {uz:"Chegaralarni belgilamoq kerak.",tr:"Sınırları belirlemek gerekiyor."},
+    {uz:"Bu mening tanlovim.",tr:"Bu benim seçimim."},
+    {uz:"Ruhim dam olishga muhtoj.",tr:"Ruhumun dinlenmeye ihtiyacı var."},
+    {uz:"Men o'zimni tushunmoqdaman.",tr:"Kendimi anlamaya çalışıyorum."},
+    {uz:"Bu mening hayotim.",tr:"Bu benim hayatım."},
+    {uz:"O'z qadrini bil.",tr:"Kendi değerini bil."},
+    {uz:"Hozir yaxshi his qilyapman.",tr:"Şu an kendimi iyi hissediyorum."},
+    {uz:"Bugun ilhom bor.",tr:"Bugün ilham var."},
+    {uz:"Har kun birozcha o'saman.",tr:"Her gün biraz büyüyorum."},
+  ]},
+];
+
+const TOPICS = [
+  {
+    emoji:"🎵",
+    name:"Musiqa va ruh",
+    tr:"Müzik ve Ruh",
+    text:"Musiqa -  insonning eng qadimiy tili. O'zbek musiqasi Shashmaqom an'anasida: olti maqomdan iborat klassik sistema. Har bir maqom -  alohida kayfiyat, alohida hissiyot. Maqom -  joy, maqom -  davr, maqom -  ruh. Dutor, sato, g'ijjak, doira -  milliy cholg'ular. Ularning ovozi eski Samarqand ko'chalaridan, ipak yo'li karvonlaridan keladi. Zamonaviy o'zbek musiqasi ham aktiv: pop, rock, jazz -  hamma janr rivojlanmoqda.",
+    words:[
+      {uz:"Maqom",tr:"Makam"},
+      {uz:"Shashmaqom",tr:"Altı Makam"},
+      {uz:"Dutor",tr:"İki telli saz"},
+      {uz:"Doira",tr:"Def davul"},
+      {uz:"Ovoz",tr:"Ses"},
+      {uz:"Kayfiyat",tr:"Ruh hali / Mood"},
+      {uz:"Melodiya",tr:"Melodi"},
+      {uz:"Nota",tr:"Nota"},
+      {uz:"Qo'shiqchi",tr:"Şarkıcı"},
+      {uz:"Konsert",tr:"Konsert"},
+    ]
+  },
+  {
+    emoji:"📚",
+    name:"Adabiyot va so'z san'ati",
+    tr:"Edebiyat ve Söz Sanatı",
+    text:"O'zbek adabiyoti 1000 yildan ortiq tarixga ega. Alisher Navoiy -  o'zbek tilini adabiy tilga aylantirgan daho. Uning Xamsa dostoni -  beshta ulkan muhabbat va falsafa eposi. Boburnoma -  birinchi o'zbek tarjimayi holi va dunyoning eng qimmatli memuar asarlaridan biri. XX asrda Abdulla Qodiriy 'O'tgan kunlar' romani bilan yangi o'zbek adabiyotiga asos soldi. Psixologik tahlil, sevgi, tarix -  barchasi bir asarda.",
+    words:[
+      {uz:"Navoiy",tr:"Nevai (şair)"},
+      {uz:"Xamsa",tr:"Hamse (5 destan)"},
+      {uz:"Boburnoma",tr:"Babürnâme"},
+      {uz:"G'azal",tr:"Gazel"},
+      {uz:"Doston",tr:"Destan"},
+      {uz:"Muallif",tr:"Yazar"},
+      {uz:"Qahramonlik",tr:"Kahramanlık"},
+      {uz:"Ijod",tr:"Yaratıcılık"},
+      {uz:"Ruboiy",tr:"Rubai"},
+      {uz:"Tartib",tr:"Düzen / Tertip"},
+    ]
+  },
+  {
+    emoji:"🧠",
+    name:"Psixologiya va o'z-o'zini anglash",
+    tr:"Psikoloji ve Öz Farkındalık",
+    text:"Psixologiya -  o'zingni tanishning eng qiziqarli yo'li. Ong va ongsizlik o'rtasidagi munosabat, xotirani boshqarish, stresni engish -  bular zamonaviy psixologiyaning asosiy mavzulari. O'zbek madaniyatida ham ruh muhim o'rin tutadi -  'qalb', 'ko'ngil', 'ruh' -  uchta alohida so'z, uchta alohida ma'no. Ko'ngil -  xohish va his markazi. Qalb -  sevgi va sadoqat. Ruh -  olam bilan aloqa.",
+    words:[
+      {uz:"Ong",tr:"Bilinç"},
+      {uz:"Ko'ngil",tr:"Gönül / İçsel istek"},
+      {uz:"Qalb",tr:"Kalp"},
+      {uz:"Ruh",tr:"Ruh"},
+      {uz:"Tafakkur",tr:"Düşünce"},
+      {uz:"Iroda",tr:"İrade"},
+      {uz:"Xotira",tr:"Hafıza"},
+      {uz:"Ongli",tr:"Bilinçli"},
+      {uz:"O'zlik",tr:"Benlik / Kimlik"},
+      {uz:"Munosabat",tr:"İlişki / Tutum"},
+    ]
+  },
+  {
+    emoji:"🏆",
+    name:"Sport va jasurlik",
+    tr:"Spor ve Cesaret",
+    text:"O'zbekiston -  olimpiya medallari bo'yicha eng faol Markaziy Osiyo davlati. Boks -  mamlakatning eng kuchli tomonlaridan biri. Hasanboy Do'smatov, Bakhodir Jalolov, Shakhobidin Zoirov -  uchta oltin medal egasi. Kurash -  O'zbekiston milliy sporty. 3500 yillik tarixga ega. 2018 yilda xalqaro federatsiya tashkil etildi. Endi kurash 100 dan ortiq mamlakatda o'ynaladi. Sportnig o'zi -  hayot falsafasi: 'Tushding -  tur. Yiqilding -  tur. To'xtama.'",
+    words:[
+      {uz:"Jasurlik",tr:"Cesaret"},
+      {uz:"Chidamlilik",tr:"Dayanıklılık"},
+      {uz:"G'alaba",tr:"Zafer"},
+      {uz:"Raqib",tr:"Rakip"},
+      {uz:"Oltin",tr:"Altın"},
+      {uz:"Olimpiada",tr:"Olimpiyat"},
+      {uz:"Musobaqa",tr:"Yarışma"},
+      {uz:"Trener",tr:"Antrenör"},
+      {uz:"Mashg'ulot",tr:"Antrenman"},
+      {uz:"Natija",tr:"Sonuç"},
+    ]
+  },
+  {
+    emoji:"🎨",
+    name:"San'at va go'zallik",
+    tr:"Sanat ve Güzellik",
+    text:"O'zbek san'ati -  Sharqning eng boy meroslaridan biri. Miniatura -  Behzod maktabidan boshlab rivojlangan. Har bir rasm -  butun bir hikoya, har bir rang -  alohida ramz. Kulolchilik -  Rishton ustalarinki. Ko'k-oq naqshli sopol idishlar 500 yildan beri bir xil usulda ishlanilyapti. Suzani -  qo'l bilan kashtlab yasalgan ipak matolar. Har bir naqsh ma'noga to'la: anor -  baxt, lola -  sevgi, barg -  umid.",
+    words:[
+      {uz:"Naqsh",tr:"Desen / Nakış"},
+      {uz:"Ranglar",tr:"Renkler"},
+      {uz:"Qo'l ishi",tr:"El işi"},
+      {uz:"Usta",tr:"Usta"},
+      {uz:"Asil",tr:"Gerçek / Özgün"},
+      {uz:"Go'zallik",tr:"Güzellik"},
+      {uz:"Bezak",tr:"Süsleme"},
+      {uz:"Ipak",tr:"İpek"},
+      {uz:"Miniatura",tr:"Minyatür"},
+      {uz:"Kashtchilik",tr:"Nakış işi"},
+    ]
+  },
+  {
+    emoji:"🌍",
+    name:"Madaniyat va an'analar",
+    tr:"Kültür ve Gelenekler",
+    text:"O'zbek madaniyatining eng chiroyli jihati -  mehmonnavozlik. 'Mehmon -  xudo mehmon' -  bu faqat maqol emas, bu hayot tarzi. Uyingizga kirgan mehmonga choy, non, meva taklif qilish -  bu farz. Navro'z -  21 Martda bahor bayramı. Sumalak -  buğday tatlısı -  Navro'zning ramzi. To'ylar -  bir necha kun davom etadigan ulug'vor bayramlar. Atlas va do'ppi -  milliy kiyim. Har bir shahar -  o'z uslubiga ega.",
+    words:[
+      {uz:"Mehmonnavozlik",tr:"Misafirperverlik"},
+      {uz:"Dasturxon",tr:"Sofra"},
+      {uz:"Navro'z",tr:"Nevruz"},
+      {uz:"Sumalak",tr:"Sumalak (özel tatlı)"},
+      {uz:"Atlas",tr:"Atlas kumaş"},
+      {uz:"Do'ppi",tr:"Özbek takkesi"},
+      {uz:"Maqol",tr:"Atasözü"},
+      {uz:"Urf-odat",tr:"Gelenek-görenek"},
+      {uz:"Qadimiy",tr:"Kadim / Antik"},
+      {uz:"Zamonaviy",tr:"Modern / Çağdaş"},
+    ]
+  },
+  {
+    emoji:"🌿",
+    name:"Tabiat va erkinlik",
+    tr:"Doğa ve Özgürlük",
+    text:"O'zbekiston -  quruq mamlakatday ko'rinadi, lekin haqiqat boshqacha. Sharqda Tyan-Shan tog'lari 4000 metrdan oshadi. Charvak ko'li -  tiniq moviy suvlari bilan. Farg'ona vodiysi -  Markaziy Osiyoning eng hosildor joyi. G'arbda -  Qizilqum cho'li. Kechalari cho'l osmonida yulduzlar shu qadar yorqinki, osmon chuqur dengizday ko'rinadi. Amudaryo -  hayot daryo, ming yildan beri dehqonlarga suv beradi.",
+    words:[
+      {uz:"Vodiy",tr:"Vadi"},
+      {uz:"Hosildor",tr:"Verimli"},
+      {uz:"Tiniq",tr:"Berrak / Şeffaf"},
+      {uz:"Hovuz",tr:"Havuz / Gölet"},
+      {uz:"Adir",tr:"Tepe / Kır"},
+      {uz:"Bahor",tr:"Bahar"},
+      {uz:"Yoz",tr:"Yaz"},
+      {uz:"Kuz",tr:"Sonbahar"},
+      {uz:"Qish",tr:"Kış"},
+      {uz:"Fasl",tr:"Mevsim"},
+    ]
+  },
+  {
+    emoji:"💫",
+    name:"Falsafa va hayot ma'nosi",
+    tr:"Felsefe ve Hayatın Anlamı",
+    text:"O'zbek xalqida falsafiy tafakkur uzoq tarixga ega. Ibn Sino (Avitsenna) -  tibbiyot va falsafaning ulug' ustozi. Al-Xorazmiy -  matematika va algoritm fanining otasi. Beruniy -  astronomiya va geografiyada inqilob yaratdi. Bu allomalar hayotning ma'nosini izlashdi: bilim, sabr, mehnat va yaxshi niyat. 'Ilm -  eng katta boylik' -  bu o'zbek falsafasining asosiy qoidasi.",
+    words:[
+      {uz:"Falsafa",tr:"Felsefe"},
+      {uz:"Hikmat",tr:"Hikmet / Bilgelik"},
+      {uz:"Ilm",tr:"İlim / Bilim"},
+      {uz:"Sabr",tr:"Sabır"},
+      {uz:"Niyat",tr:"Niyet"},
+      {uz:"Haqiqat",tr:"Gerçek / Hakikat"},
+      {uz:"Ma'no",tr:"Anlam / Mana"},
+      {uz:"Qiymat",tr:"Değer"},
+      {uz:"Boqiy",tr:"Ebedi / Kalıcı"},
+      {uz:"Dunyo",tr:"Dünya"},
+    ]
+  },
+];
+
+// ====== NAV ======
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.querySelector(`[data-page="${name}"]`).classList.add('active');
+  window.scrollTo({top: document.getElementById('appNav').offsetTop, behavior:'smooth'});
+
+  if(name === 'vocab') renderVocab(VOCAB);
+  if(name === 'phrases') renderPhrases();
+  if(name === 'topics') renderTopics();
+  if(name === 'flashcards') initFlashcards();
+}
+
+// ====== STORY TOGGLE ======
+function toggleLang(btn, lang) {
+  const body = btn.closest('.story-body');
+  body.querySelectorAll('.story-lang-btn').forEach(b => {
+    b.classList.remove('uz','tr');
+    b.style.background = '';
+    b.style.color = '';
+  });
+  const trText = body.querySelector('.story-text-tr');
+  if(lang === 'tr') {
+    btn.classList.add('tr');
+    btn.style.background = 'var(--gold)';
+    btn.style.color = 'var(--bg)';
+    trText.style.display = 'block';
+  } else {
+    btn.classList.add('uz');
+    btn.style.background = 'var(--gold)';
+    btn.style.color = 'var(--bg)';
+    trText.style.display = 'none';
+  }
+}
+
+// ====== VOCAB ======
+let currentTag = 'all';
+function renderVocab(data) {
+  const grid = document.getElementById('vocabGrid');
+  const count = document.getElementById('vocabCount');
+  grid.innerHTML = '';
+  count.textContent = `${data.length} so'z ko'rsatilmoqda`;
+  data.forEach((w,i) => {
+    const div = document.createElement('div');
+    div.className = 'vcard';
+    div.innerHTML = `
+      <div class="vcard-hint">bosing</div>
+      <div class="vcard-front">
+        <div class="vcard-cat">${w.cat}</div>
+        <div class="vcard-uz">${w.uz}</div>
+        <div class="vcard-tr">${w.tr}</div>
+        <div class="vcard-ex">${w.ex}</div>
+      </div>`;
+    div.onclick = () => div.classList.toggle('flipped');
+    grid.appendChild(div);
+  });
+}
+
+function filterVocab() {
+  const q = document.getElementById('vocabSearch').value.toLowerCase();
+  const filtered = VOCAB.filter(w =>
+    (currentTag === 'all' || w.cat === currentTag) &&
+    (w.uz.toLowerCase().includes(q) || w.tr.toLowerCase().includes(q) || w.ex.toLowerCase().includes(q))
+  );
+  renderVocab(filtered);
+}
+
+function filterByTag(tag, btn) {
+  currentTag = tag;
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  filterVocab();
+}
+
+// ====== PHRASES ======
+function renderPhrases() {
+  const container = document.getElementById('phrasesContainer');
+  container.innerHTML = '';
+  PHRASES.forEach(sec => {
+    const div = document.createElement('div');
+    div.className = 'phrase-section';
+    div.innerHTML = `<div class="phrase-section-title"><span>${sec.section}</span></div>`;
+    sec.items.forEach(p => {
+      const row = document.createElement('div');
+      row.className = 'phrase-row';
+      row.innerHTML = `
+        <div class="phrase-uz">
+          <div class="phrase-label">O'zbek</div>
+          ${p.uz}
+        </div>
+        <div class="phrase-tr">
+          <div class="phrase-label">Türkçe</div>
+          ${p.tr}
+        </div>`;
+      div.appendChild(row);
+    });
+    container.appendChild(div);
+  });
+}
+
+// ====== TOPICS ======
+function renderTopics() {
+  const grid = document.getElementById('topicsGrid');
+  grid.innerHTML = '';
+  TOPICS.forEach(t => {
+    const card = document.createElement('div');
+    card.className = 'topic-big-card';
+    const words = t.words.map(w =>
+      `<div class="tw"><strong>${w.uz}</strong><small>${w.tr}</small></div>`
+    ).join('');
+    card.innerHTML = `
+      <div class="topic-card-top">
+        <span class="topic-emoji">${t.emoji}</span>
+        <div class="topic-card-name">${t.name}</div>
+        <div class="topic-card-name-tr">${t.tr}</div>
+      </div>
+      <div class="topic-card-body">
+        <div class="topic-card-text">${t.text}</div>
+        <div class="topic-words">${words}</div>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+// ====== FLASHCARDS ======
+let fcDeck = [], fcIndex = 0, fcRight = 0, fcWrong = 0, fcRevealed = false;
+function initFlashcards() {
+  fcDeck = [...VOCAB].sort(() => Math.random() - 0.5);
+  fcIndex = 0; fcRight = 0; fcWrong = 0; fcRevealed = false;
+  showFCCard();
+}
+function showFCCard() {
+  if(fcIndex >= fcDeck.length) {
+    document.getElementById('fcWord').textContent = '🎉 Tamom!';
+    document.getElementById('fcCat').textContent = 'Natija';
+    document.getElementById('fcAnswer').textContent = `${fcRight} to'g'ri / ${fcWrong} noto'g'ri`;
+    document.getElementById('fcExample').textContent = 'Qayta boshlash uchun refresh qiling';
+    document.getElementById('fcControls').style.display = 'none';
+    return;
+  }
+  const w = fcDeck[fcIndex];
+  fcRevealed = false;
+  document.getElementById('flashcard').classList.remove('revealed');
+  document.getElementById('fcWord').textContent = w.uz;
+  document.getElementById('fcCat').textContent = w.cat;
+  document.getElementById('fcCatBack').textContent = w.cat;
+  document.getElementById('fcAnswer').textContent = w.tr;
+  document.getElementById('fcExample').textContent = w.ex;
+  document.getElementById('fcCounter').textContent = String(fcIndex+1).padStart(2,'0');
+  document.getElementById('fcScore').textContent = `${fcRight} to'g'ri · ${fcWrong} noto'g'ri`;
+  document.getElementById('fcProgress').style.width = `${(fcIndex/fcDeck.length)*100}%`;
+  document.getElementById('fcControls').style.display = 'none';
+  document.getElementById('fcNavHint').style.display = 'block';
+}
+function revealCard() {
+  if(fcRevealed) return;
+  fcRevealed = true;
+  document.getElementById('flashcard').classList.add('revealed');
+  document.getElementById('fcControls').style.display = 'flex';
+  document.getElementById('fcNavHint').style.display = 'none';
+}
+function nextCard(correct) {
+  if(correct) fcRight++; else fcWrong++;
+  fcIndex++;
+  showFCCard();
+}
+document.addEventListener('keydown', e => {
+  if(document.getElementById('page-flashcards').classList.contains('active')) {
+    if(e.key === 'ArrowRight' || e.key === ' ') {
+      if(!fcRevealed) revealCard();
+      else nextCard(true);
+    }
+    if(e.key === 'ArrowLeft') nextCard(false);
+  }
+});
+
+// ====== CURSOR ======
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX + 'px';
+  cur.style.top = e.clientY + 'px';
+  setTimeout(() => {
+    ring.style.left = e.clientX + 'px';
+    ring.style.top = e.clientY + 'px';
+  }, 80);
+});
+
+// ====== SCROLL HERO → SHOW NAV ======
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('appNav');
+});
+
+// Init
+renderVocab(VOCAB);
+</script>
+</body>
+</html>
